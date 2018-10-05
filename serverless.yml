@@ -11,5 +11,11 @@ functions:
       - http:
           path: hello/get
           method: get
+  greet:
+    handler: handler.greet
+    events:
+      - http:
+          path: greet/get
+          method: get
 plugins:
   - serverless-offline
