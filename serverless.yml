@@ -6,16 +6,9 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.handler # refers to handler.js and module handler
     events:
-      - http:
-          path: hello/get
-          method: get
-  greet:
-    handler: handler.greet
-    events:
-      - http:
-          path: greet/get
-          method: get
+      - http: ANY /
+      - http: 'ANY {proxy+}'
 plugins:
   - serverless-offline

@@ -1,25 +1,21 @@
-'use strict';
+const serverless = require('serverless-http')
+const express = require('express')
+const app = express()
 
-module.exports.hello = async (event, context) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Wowzaahhhhh, we in the cloud!',
-      input: event,
-    }),
-  };
+app.get('/', function(req, res) {
+  res.send(JSON.stringify({
+    body: 'Welcome to the serverless experience'
+  }))
+})
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+app.get('/greet/:name', function(req, res) {
+  res.status(200).json({ body: 'Hello, ' + req.params.name })
+})
 
-module.exports.greet = async (event, context) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Hello offline serverless',
-      input: event,
-      context: context
-    }),
-  }
-};
+// Handle invalid routes
+app.get('*', function(req, res) {
+  res.status(404).json({
+    error: "The route you are trying to visit IS DEAD!"
+  })
+})
+module.exports.handler = serverless(app)
