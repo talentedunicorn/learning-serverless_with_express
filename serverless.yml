@@ -9,6 +9,8 @@ functions:
     handler: handler.handler # refers to handler.js and module handler
     events:
       - http: ANY /
+        cors: true
       - http: 'ANY {proxy+}'
+        cors: true
 plugins:
   - serverless-offline
