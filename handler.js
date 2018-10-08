@@ -39,10 +39,10 @@ app.get('/greet/:name', function(req, res) {
 })
 
 app.post('/orders', function(req, res) {
-  let { title, name, amount, email, address } = req.body
+  let { title, fullname, amount, email, address } = req.body
   const order = Order({
     title,
-    name,
+    fullname,
     amount,
     email,
     address
