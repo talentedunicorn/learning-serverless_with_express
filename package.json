@@ -4,6 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
+    "dev": "serverless offline start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,10 +15,10 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "mongoose": "^5.3.2",
-    "serverless-http": "^1.6.0",
-    "cors": "^2.8.4",
-    "dotenv": "^6.0.0"
+    "serverless-http": "^1.6.0"
   }
 }
