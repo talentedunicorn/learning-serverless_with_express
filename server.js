@@ -57,6 +57,20 @@ app.post('/orders', function(req, res) {
     })
 })
 
+app.post('/orders/update/:id', function(req, res) {
+  let { URL } = req.body
+
+  Order.findById(req.params.id, function(err, doc) {
+    if(err) return res.status(500).json({ error: err })
+
+    doc.billUrl = URL
+    doc.save(function(err, doc) {
+      if(err) return res.status(500).json({ error: err })
+      res.status(200).json({ msg: "Updated successfully", data: doc })
+    })
+  })
+})
+
 app.get('/orders', function(req, res) {
   Order.find({})
     .then(data => {
