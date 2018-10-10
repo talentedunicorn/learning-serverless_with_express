@@ -5,8 +5,8 @@ const Orders = mongoose.Schema({
   fullname: String,
   amount: Number,
   email: String,
-  address: String
-})
+  address: String,
+}, { timestamps: true })
 
 const Order = mongoose.models.Order || mongoose.model('Order', Orders)
 

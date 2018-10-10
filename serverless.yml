@@ -6,7 +6,7 @@ provider:
 
 functions:
   app:
-    handler: server.handler # refers to handler.js and module handler
+    handler: server.handler
     events:
       - http: ANY /
         cors: true
