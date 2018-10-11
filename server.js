@@ -6,14 +6,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const connectDB = require('./libs/db')
 const Order = require('./models/order')
 const app = express()
 
 // Connect to mongoose
-mongoose
-  .connect(process.env.MONGO_DB_URL)
-  .then(() => console.log('Connected to mongodb'))
-  .catch(err => console.log(err))
+// mongoose
+//   .connect(process.env.MONGO_DB_URL)
+//   .then(() => console.log('Connected to mongodb'))
+//   .catch(err => console.log(err))
+
+connectDB()
 
 // Add CORS
 app.use(cors())
