@@ -11,7 +11,7 @@ const connectDB = () => {
   }
 
   console.log('=> connecting to database...')
-  return mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true })
+  return mongoose.connect(process.env.DB, { useNewUrlParser: true })
     .then(db => { isConnected = db.connections[0].readyState })
     .catch(err => console.log('Error: ' + err))
 }

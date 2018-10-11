@@ -11,11 +11,6 @@ const Order = require('./models/order')
 const app = express()
 
 // Connect to mongoose
-// mongoose
-//   .connect(process.env.MONGO_DB_URL)
-//   .then(() => console.log('Connected to mongodb'))
-//   .catch(err => console.log(err))
-
 connectDB()
 
 // Add CORS
