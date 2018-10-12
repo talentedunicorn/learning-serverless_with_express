@@ -7,7 +7,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   environment:
-    JTW_SECRET: ${self:custom.secrets.JTW_SECRET}
+    JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
     DB: ${self:custom.secrets.DB}
 
 functions:
@@ -18,8 +18,10 @@ functions:
         cors: true
       - http: 'ANY {proxy+}'
         cors: true
+
   verify-token:
     handler: auth.VerifyToken.auth
+
   login:
     handler: auth/AuthHandler.login
     events:
@@ -27,6 +29,7 @@ functions:
           path: login
           method: post
           cors: true
+
   register:
     handler: auth/AuthHandler.register
     events:
