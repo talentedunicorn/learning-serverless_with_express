@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 // Policy helper
 const generatePolicy = (principalId, effect, resource) => {
-  const authResponse = {}
+  let authResponse = {}
   authResponse.principalId = principalId
 
   if (effect && resource) {
@@ -10,7 +10,7 @@ const generatePolicy = (principalId, effect, resource) => {
     policyDocument.Version = '2012-10-17'
     policyDocument.Statement = []
 
-    const statementOne = {}
+    let statementOne = {}
     statementOne.Action = 'execute-api:Invoke'
     statementOne.Effect = effect
     statementOne.Resource = resource
@@ -21,16 +21,17 @@ const generatePolicy = (principalId, effect, resource) => {
   return authResponse
 }
 
-module.exports.auth = (event, context, callback) => {
-  const token = event.authorizationToken
+module.exports.auth = (req, res, next) => {
+  let token = req.headers['x-access-token']
 
   if(!token) {
-    return callback(null, 'Unauthorized')
+    return res.status(403).send({ auth: false, message: 'No token provided' })
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) return callback(null, 'Unauthorized')
+    if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token' })
 
-    return callback(null, generatePolicy(decoded.id, 'Allow', event.methodArn))
+    req.userId = decoded.id
+    next()
   })
 }

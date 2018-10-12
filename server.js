@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const connectDB = require('./libs/db')
+const VerifyToken = require('./auth/VerifyToken.js')
 const Order = require('./models/order')
 const app = express()
 
@@ -69,7 +70,7 @@ app.post('/orders/update/:id', function(req, res) {
   })
 })
 
-app.get('/orders', function(req, res) {
+app.get('/orders', VerifyToken.auth, function(req, res, next) {
   Order.find({})
     .then(data => {
       res.status(200).send(data)
