@@ -37,7 +37,7 @@ app.get('/greet/:name', function(req, res) {
   res.status(200).json({ body: 'Hello, ' + req.params.name })
 })
 
-app.post('/orders', function(req, res) {
+app.post('/orders', VerifyToken.auth, function(req, res) {
   let { title, fullname, amount, email, address } = req.body
   const order = Order({
     title,
