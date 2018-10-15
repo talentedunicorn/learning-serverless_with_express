@@ -38,13 +38,14 @@ app.get('/greet/:name', function(req, res) {
 })
 
 app.post('/orders', VerifyToken.auth, function(req, res) {
-  let { title, fullname, amount, email, address } = req.body
+  let { title, fullname, quantity, email, address, service } = req.body
   const order = Order({
     title,
     fullname,
-    amount,
+    quantity,
     email,
-    address
+    address,
+    service
   })
 
   order
