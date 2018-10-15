@@ -38,16 +38,7 @@ app.get('/greet/:name', function(req, res) {
 })
 
 app.post('/orders', VerifyToken.auth, function(req, res) {
-  let { title, fullname, quantity, email, address, service } = req.body
-  const order = Order({
-    title,
-    fullname,
-    quantity,
-    email,
-    address,
-    service
-  })
-
+  const order = Order(req.body)
   order
     .save()
     .then(data => res.status(200).send(data))
