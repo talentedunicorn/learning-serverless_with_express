@@ -1,4 +1,5 @@
-service: teabag
+service: 
+  name: teabag
 
 custom:
   secrets: ${file(./secrets.json)}

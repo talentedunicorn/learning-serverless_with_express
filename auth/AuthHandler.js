@@ -31,11 +31,20 @@ module.exports.login = (event, context) => {
     .then(() => login(JSON.parse(event.body)))
     .then(session => ({
       statusCode: 200,
+      headers: {
+        /* Required for CORS support to work */
+        'Access-Control-Allow-Origin': '*',
+        /* Required for cookies, authorization headers with HTTPS */
+        'Access-Control-Allow-Credentials': true,
+      },
       body: JSON.stringify(session)
     }))
     .catch(err => ({
       statusCode: err.statusCode || 500,
-      headers: { 'Content-Type' : 'text/plain' },
+      headers: { 
+        'Content-Type' : 'text/plain',
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify({ stack: err.stack, message: err.message })
     }))
 }
